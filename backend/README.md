@@ -11,37 +11,6 @@ Node.js + Express + MongoDB backend for the Vital Green juice e-commerce platfor
 - **Contact Form**: Email delivery via SMTP
 - **Pagination**: Server-side pagination for product listings
 
-## Installation
-
-1. Create `.env` file from `.env.example`:
-```bash
-cp .env.example .env
-```
-
-2. Update `.env` with your settings:
-```
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/vital-green
-CORS_ORIGIN=http://localhost:5173
-SMTP_SERVICE=gmail
-SMTP_USER=your_gmail@gmail.com
-SMTP_PASS=your_app_password
-SMTP_FROM="Vital Green <your_gmail@gmail.com>"
-CONTACT_TO=vitalandgrean@gamil.com
-```
-
-3. Install dependencies:
-```bash
-npm install
-```
-
-4. Start the server:
-```bash
-npm run dev
-```
-
-Server will run on `http://localhost:5000`
-
 ## API Endpoints
 
 ### Products
