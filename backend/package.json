@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "NODE_OPTIONS=--dns-result-order=ipv4first node server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
