@@ -4,7 +4,7 @@ import { CartContext } from "../context/CartContextValue"
 import { motion } from "framer-motion" // eslint-disable-line no-unused-vars
 import { productsAPI } from "../services/api"
 import { productsCatalog } from "../data/products"
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api"
+const API_BASE_URL = import.meta.env.VITE_API_URL || "https://vitalandgreen.onrender.com/api"
 const ASSET_BASE_URL = API_BASE_URL.replace(/\/api\/?$/, "")
 
 const resolveProductImage = (product) => {
