@@ -9,7 +9,7 @@
    - Local: Download from https://www.mongodb.com/try/download/community
    - Or use MongoDB Atlas (cloud): https://www.mongodb.com/cloud/atlas
 
-3. **Payments Account** (for payments)
+3. **Email Account (SMTP)** (for contact form emails)
    
 ### Installation Steps
 
@@ -42,7 +42,12 @@ MONGODB_URI=mongodb://localhost:27017/vital-green
 # OR MongoDB Atlas (cloud):
 # MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/vital-green?retryWrites=true&w=majority
 
-# Payments (no external key required)
+# Email (SMTP)
+SMTP_SERVICE=gmail
+SMTP_USER=your_gmail@gmail.com
+SMTP_PASS=your_app_password
+SMTP_FROM="Vital Green <your_gmail@gmail.com>"
+CONTACT_TO=vitalandgrean@gamil.com
 
 CORS_ORIGIN=http://localhost:5173
 ```
@@ -209,7 +214,7 @@ db.orders.countDocuments()
 
 1. ✅ Backend running
 2. ⬜ Connect frontend to backend
-3. ⬜ Configure Payments webhook
+3. ⬜ Configure email delivery
 4. ⬜ Set up email notifications
 5. ⬜ Deploy to production
 

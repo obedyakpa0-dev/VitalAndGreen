@@ -29,8 +29,6 @@ await productsAPI.getAll(page, limit)
 // Get product by ID
 await productsAPI.getById(id)
 
-// Search products
-await productsAPI.search(query)
 
 // Create product
 await productsAPI.create(productData)
@@ -72,11 +70,8 @@ await ordersAPI.cancel(id)
 ```javascript
 import { paymentAPI } from '../services/api'
 
-// Initialize Payments transaction
-await paymentAPI.initialize({ email, amount, metadata, callback_url })
-
-// Verify Payments transaction
-await paymentAPI.verify(reference)
+// Initialize mock payment
+await paymentAPI.initialize({ email, amount })
 ```
 
 ## Pages Using Backend Integration
@@ -98,9 +93,9 @@ await paymentAPI.verify(reference)
 - Can be updated to fetch featured products from `/api/products`
 
 ### 4. **Checkout** (`src/pages/Checkout.jsx`)
-- Uses Payments redirect flow
-- Ready to integrate with `/api/payment/create-intent` and `/api/payment/confirm`
-- Ready to integrate with `/api/orders` for order creation
+- Stores orders locally in `localStorage`
+- Opens an external payment link in a new tab
+- Not yet connected to backend orders or payment endpoints
 
 ## Running the Full Stack
 
@@ -147,4 +142,4 @@ If the backend is unavailable:
 
 ## Payments Redirect
 
-After initializing payment, the checkout completes immediately and navigates to the order confirmation page.
+Checkout opens an external payment link in a new tab and then navigates to the order confirmation page.

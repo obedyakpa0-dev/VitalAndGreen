@@ -44,24 +44,21 @@ Backend runs on: `http://localhost:5000`
 ## Features
 
 ### Frontend (React + Vite)
-- ✅ Product catalog with search
-- ✅ Shopping cart with quantity management
-- ✅ User authentication
-- ✅ Checkout with payment form
-- ✅ Order confirmation
-- ✅ Responsive design with Tailwind CSS
-- ✅ Smooth animations with Framer Motion
-- ✅ Client-side routing with React Router
-
+- Product catalog
+- Shopping cart with quantity management
+- Checkout form
+- Order confirmation
+- Responsive design with Tailwind CSS
+- Smooth animations with Framer Motion
+- Client-side routing with React Router
+- Contact form (email via backend)
 ### Backend (Express + MongoDB)
-- ✅ RESTful API
-- ✅ Product CRUD operations
-- ✅ Order management with stock control
-- ✅ User registration and login
-- ✅ JWT authentication
-- ✅ Stripe payment integration
-- ✅ Order history and tracking
-- ✅ Product reviews and ratings
+- RESTful API
+- Product CRUD operations
+- Order management with stock control
+- Product reviews and ratings
+- Contact form email delivery
+- Mock payment initialization
 
 ## API Documentation
 
@@ -73,7 +70,6 @@ http://localhost:5000/api
 ### Products
 - `GET /products` - List all products
 - `GET /products/:id` - Get product details
-- `GET /products/search?query=juice` - Search products
 - `POST /products` - Create new product (admin)
 - `PUT /products/:id` - Update product (admin)
 - `DELETE /products/:id` - Delete product (admin)
@@ -83,20 +79,18 @@ http://localhost:5000/api
 - `POST /orders` - Create new order
 - `GET /orders` - Get all orders (admin)
 - `GET /orders/:id` - Get order details
+- `GET /orders/number/:orderNumber` - Get order by order number
 - `PUT /orders/:id` - Update order status
 - `POST /orders/:id/cancel` - Cancel order
 
-### Auth
-- `POST /auth/register` - Register user
-- `POST /auth/login` - Login user
-- `GET /auth/profile/:id` - Get user profile
-- `PUT /auth/profile/:id` - Update profile
-- `POST /auth/verify` - Verify token
-
 ### Payment
-- `POST /payment/create-intent` - Create payment intent
-- `POST /payment/confirm` - Confirm payment
-- `POST /payment/refund` - Process refund
+- `POST /payment/initialize` - Initialize mock payment
+
+### Contact
+- `POST /contact` - Send contact form email
+
+### Health
+- `GET /health` - Server health check
 
 ## Environment Setup
 
@@ -109,10 +103,12 @@ VITE_API_URL=http://localhost:5000/api
 ```
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/vital-green
-JWT_SECRET=your_jwt_secret_key
-STRIPE_SECRET_KEY=sk_test_...
-STRIPE_PUBLIC_KEY=pk_test_...
 CORS_ORIGIN=http://localhost:5173
+SMTP_SERVICE=gmail
+SMTP_USER=your_gmail@gmail.com
+SMTP_PASS=your_app_password
+SMTP_FROM="Vital Green <your_gmail@gmail.com>"
+CONTACT_TO=vitalandgrean@gamil.com
 ```
 
 ## Technologies Used
@@ -123,16 +119,15 @@ CORS_ORIGIN=http://localhost:5173
 - React Router DOM
 - Tailwind CSS
 - Framer Motion
-- Axios (for API calls)
+- Fetch API (for API calls)
 
 ### Backend
 - Node.js
 - Express.js
 - MongoDB
 - Mongoose
-- JWT Authentication
-- Stripe API
-- bcryptjs
+- Nodemailer
+- Multer
 
 ## Development Workflow
 
@@ -149,7 +144,7 @@ CORS_ORIGIN=http://localhost:5173
 3. **Database**:
    - MongoDB should be running locally
    - Sample products will auto-initialize on first run
-   - Orders and users stored persistently
+   - Orders stored persistently
 
 ## Testing
 
@@ -171,11 +166,6 @@ npm run dev
 ```bash
 # Get products
 curl http://localhost:5000/api/products
-
-# Register user
-curl -X POST http://localhost:5000/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"firstName":"John","lastName":"Doe","email":"john@example.com","password":"password123"}'
 ```
 
 ## Deployment
@@ -205,7 +195,6 @@ For issues or questions, please refer to the individual README files in:
 
 - [ ] Connect frontend API calls to backend
 - [ ] Set up MongoDB Atlas for production
-- [ ] Configure Stripe with real keys
 - [ ] Add email notifications
 - [ ] Implement admin dashboard
 - [ ] Add product image uploads
