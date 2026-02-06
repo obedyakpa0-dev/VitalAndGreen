@@ -92,25 +92,6 @@ http://localhost:5000/api
 ### Health
 - `GET /health` - Server health check
 
-## Environment Setup
-
-### Frontend (.env)
-```
-VITE_API_URL=http://localhost:5000/api
-```
-
-### Backend (.env)
-```
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/vital-green
-CORS_ORIGIN=http://localhost:5173
-SMTP_SERVICE=gmail
-SMTP_USER=your_gmail@gmail.com
-SMTP_PASS=your_app_password
-SMTP_FROM="Vital Green <your_gmail@gmail.com>"
-CONTACT_TO=vitalandgrean@gamil.com
-```
-
 ## Technologies Used
 
 ### Frontend
