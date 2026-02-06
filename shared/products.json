@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "name": "Hibiscus Bliss",
+    "description": "Floral hibiscus blend with a bright, tangy finish",
+    "price": 15,
+    "sizes": [
+      { "label": "350ml", "price": 10 },
+      { "label": "500ml", "price": 15 }
+    ],
+    "category": "juice",
+    "image": "/images/products/hubiscus.jpeg"
+  },
+  {
+    "id": 2,
+    "name": "Hydrated Refresher",
+    "description": "Electrolyte-rich hydration blend perfect for recovery",
+    "price": 15,
+    "sizes": [
+      { "label": "350ml", "price": 15 },
+      { "label": "500ml", "price": 20 }
+    ],
+    "category": "juice",
+    "image": "/images/products/hydrated.jpeg"
+  },
+  {
+    "id": 3,
+    "name": "Passion Fruit Juice",
+    "description": "Pure passion fruit extract, tangy and refreshing",
+    "price": 20,
+    "sizes": [
+      { "label": "350ml", "price": 20 },
+      { "label": "500ml", "price": 30 }
+    ],
+    "category": "juice",
+    "image": "/images/products/passion.jpeg"
+  },
+  {
+    "id": 4,
+    "name": "Pineapple Fresh",
+    "description": "Fresh pineapple juice, naturally sweet and energizing",
+    "price": 15,
+    "sizes": [
+      { "label": "350ml", "price": 15 },
+      { "label": "500ml", "price": 20 }
+    ],
+    "category": "juice",
+    "image": "/images/products/pineapple.jpeg"
+  },
+  {
+    "id": 5,
+    "name": "Signature Cocktail",
+    "description": "House blend of tropical fruits with a crisp finish",
+    "price": 15,
+    "sizes": [
+      { "label": "350ml", "price": 15 },
+      { "label": "500ml", "price": 20 }
+    ],
+    "category": "blend",
+    "image": "/images/products/signature_cocktail.jpeg"
+  },
+  {
+    "id": 6,
+    "name": "Tiger Nut Smoothie",
+    "description": "Nutritious tiger nut blend packed with minerals and fiber",
+    "price": 15,
+    "sizes": [
+      { "label": "350ml", "price": 15 },
+      { "label": "500ml", "price": 20 }
+    ],
+    "category": "smoothie",
+    "image": "/images/products/Tiger_nut.jpeg"
+  },
+  {
+    "id": 7,
+    "name": "Watermelon Smoothie",
+    "description": "Hydrating watermelon smoothie perfect for summer",
+    "price": 15,
+    "sizes": [
+      { "label": "350ml", "price": 15 },
+      { "label": "500ml", "price": 20 }
+    ],
+    "category": "smoothie",
+    "image": "/images/products/watermelon_smoothie.jpeg"
+  }
+]
