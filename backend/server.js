@@ -18,24 +18,27 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 // Middleware
-const allowedOrigins = (process.env.CORS_ORIGIN || 'https://vital-and-green.vercel.app/')
+const allowedOrigins = (process.env.CORS_ORIGIN)
   .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean)
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin) {
-      return callback(null, true)
+    if (!origin) return callback(null, true);
+
+    if (
+      origin.includes("localhost") ||
+      origin.endsWith(".vercel.app")
+    ) {
+      return callback(null, true);
     }
-    if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
-      return callback(null, true)
-    }
-    return callback(new Error(`CORS blocked for origin: ${origin}`))
+
+    console.log("Blocked:", origin);
+    return callback(new Error(`CORS blocked for origin: ${origin}`));
   },
-  credentials: true,
-  optionsSuccessStatus: 200,
-}))
+  credentials: true
+}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/images', express.static(path.join(__dirname, 'public/images')))
