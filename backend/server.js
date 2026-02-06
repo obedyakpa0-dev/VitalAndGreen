@@ -18,7 +18,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 // Middleware
-const allowedOrigins = (process.env.CORS_ORIGIN || '')
+const allowedOrigins = (process.env.CORS_ORIGIN || 'https://vital-and-green.vercel.app/')
   .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean)
@@ -73,5 +73,6 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`✓ Server running on http://localhost:${PORT}`)
 })
+console.log("CORS_ORIGIN:", process.env.CORS_ORIGIN);
 
 export default app
