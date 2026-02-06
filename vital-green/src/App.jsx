@@ -6,7 +6,6 @@ import Cart from "./pages/Cart"
 import Contact from "./pages/Contact"
 import Checkout from "./pages/Checkout"
 import OrderConfirmation from "./pages/OrderConfirmation"
-import Admin from "./pages/Admin"
 
 function App() {
   return (
@@ -19,7 +18,6 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
-        <Route path="/admin" element={<Admin />} />
       </Routes>
     </Router>
   )
