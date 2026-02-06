@@ -6,6 +6,7 @@ import { productsAPI, ordersAPI } from "../services/api"
 
 const Admin = () => {
   const navigate = useNavigate()
+  const mainSiteUrl = import.meta.env.VITE_MAIN_SITE_URL
   const [activeTab, setActiveTab] = useState("dashboard")
   const [products, setProducts] = useState([])
   const [orders, setOrders] = useState([])
@@ -139,7 +140,13 @@ const Admin = () => {
               Admin <span className="text-primary">Dashboard</span>
             </h1>
             <button
-              onClick={() => navigate("/")}
+              onClick={() => {
+                if (mainSiteUrl) {
+                  window.location.href = mainSiteUrl
+                  return
+                }
+                navigate("/")
+              }}
               className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition"
             >
               Back to Site
