@@ -9,7 +9,7 @@
    - Local: Download from https://www.mongodb.com/try/download/community
    - Or use MongoDB Atlas (cloud): https://www.mongodb.com/cloud/atlas
 
-3. **Email Account (SMTP)** (for contact form emails)
+3. **Resend Account** (for contact form emails)
    
 ### Installation Steps
 
@@ -42,12 +42,10 @@ MONGODB_URI=mongodb://localhost:27017/vital-green
 # OR MongoDB Atlas (cloud):
 # MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/vital-green?retryWrites=true&w=majority
 
-# Email (SMTP)
-SMTP_SERVICE=gmail
-SMTP_USER=your_gmail@gmail.com
-SMTP_PASS=your_app_password
-SMTP_FROM="Vital Green <your_gmail@gmail.com>"
-CONTACT_TO=vitalandgrean@gamil.com
+# Email (Resend)
+RESEND_API_KEY=your_resend_api_key
+RESEND_FROM="Vital Green <no-reply@yourdomain.com>"
+CONTACT_TO=vitalandgreengroup@gmail.com
 
 CORS_ORIGIN=http://localhost:5173
 ```

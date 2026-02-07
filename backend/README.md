@@ -8,7 +8,7 @@ Node.js + Express + MongoDB backend for the Vital Green juice e-commerce platfor
 - **Order Management**: Order creation, status updates, and cancellations
 - **Stock Management**: Automatic stock updates and validation
 - **Payment Initialization**: Mock payment endpoint (no external provider)
-- **Contact Form**: Email delivery via SMTP
+- **Contact Form**: Email delivery via Resend
 - **Pagination**: Server-side pagination for product listings
 
 ## API Endpoints
@@ -41,10 +41,8 @@ Node.js + Express + MongoDB backend for the Vital Green juice e-commerce platfor
 - `NODE_ENV` - Environment (development/production)
 - `MONGODB_URI` - MongoDB connection string
 - `CORS_ORIGIN` - Frontend URL for CORS
-- `SMTP_SERVICE` - Email provider service (e.g., gmail)
-- `SMTP_USER` - SMTP username/email
-- `SMTP_PASS` - SMTP password or app password
-- `SMTP_FROM` - From address used for outgoing email
+- `RESEND_API_KEY` - Resend API key
+- `RESEND_FROM` - From address used for outgoing email (must be verified in Resend)
 - `CONTACT_TO` - Recipient for contact form messages
 
 ## Project Structure

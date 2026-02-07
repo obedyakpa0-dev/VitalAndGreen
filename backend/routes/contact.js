@@ -1,5 +1,5 @@
 import express from 'express'
-import nodemailer from 'nodemailer'
+import https from 'https'
 
 const router = express.Router()
 
@@ -11,42 +11,57 @@ const isValidEmail = (value) => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
 }
 
-const createTransporter = () => {
-  const smtpUrl = process.env.SMTP_URL
-  if (smtpUrl) {
-    return nodemailer.createTransport(smtpUrl)
-  }
+const sendResendEmail = ({ apiKey, payload }) => {
+  return new Promise((resolve, reject) => {
+    const data = JSON.stringify(payload)
+    const request = https.request(
+      {
+        hostname: 'api.resend.com',
+        path: '/emails',
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(data),
+        },
+      },
+      (response) => {
+        let body = ''
+        response.on('data', (chunk) => {
+          body += chunk
+        })
+        response.on('end', () => {
+          const status = response.statusCode || 500
+          if (status >= 200 && status < 300) {
+            try {
+              resolve(body ? JSON.parse(body) : {})
+            } catch {
+              resolve({})
+            }
+            return
+          }
 
-  const service = process.env.SMTP_SERVICE
-  const user = process.env.SMTP_USER
-  const pass = process.env.SMTP_PASS
-  if (service && user && pass) {
-    return nodemailer.createTransport({
-      service,
-      auth: { user, pass },
-    })
-  }
+          let message = `Resend API error (${status}).`
+          try {
+            const parsed = body ? JSON.parse(body) : null
+            if (parsed?.message) {
+              message = parsed.message
+            }
+          } catch {
+            // Ignore JSON parse errors and keep fallback message.
+          }
+          const error = new Error(message)
+          error.status = status
+          error.body = body
+          reject(error)
+        })
+      }
+    )
 
-  const host = process.env.SMTP_HOST
-  const port = Number(process.env.SMTP_PORT || 587)
-  const secure = String(process.env.SMTP_SECURE || 'false').toLowerCase() === 'true'
-  const fallbackUser = process.env.SMTP_USER
-  const fallbackPass = process.env.SMTP_PASS
-
-  if (!host || !fallbackUser || !fallbackPass) {
-    return null
-  }
-
- return nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user,
-    pass,
-  },
-})
-
+    request.on('error', reject)
+    request.write(data)
+    request.end()
+  })
 }
 
 router.post('/', async (req, res) => {
@@ -61,14 +76,9 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'Please provide a valid email address.' })
     }
 
-    const transporter = createTransporter()
-    if (!transporter) {
-      return res.status(500).json({ error: 'Email service is not configured.' })
-    }
-
     const to = process.env.CONTACT_TO || 'Vitalandgreengroup@gmail.com'
-    const sender = process.env.SMTP_FROM || process.env.SMTP_USER
-    if (!sender) {
+    const fromAddress = process.env.RESEND_FROM
+    if (!fromAddress) {
       return res.status(500).json({ error: 'Email sender is not configured.' })
     }
 
@@ -76,13 +86,25 @@ router.post('/', async (req, res) => {
     const safeEmail = sanitizeHeaderValue(email)
     const subject = sanitizeHeaderValue(`New contact message from ${safeName}`)
 
-    await transporter.sendMail({
-      to,
-      from: `${safeName} <${safeEmail}>`,
-      sender,
-      replyTo: safeEmail,
-      subject,
-      text: `Name: ${safeName}\nEmail: ${safeEmail}\n\n${message}`,
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey) {
+      return res.status(500).json({ error: 'Email service is not configured.' })
+    }
+
+    const from = sanitizeHeaderValue(`${safeName} <${fromAddress}>`)
+    if (!from) {
+      return res.status(500).json({ error: 'Email sender is not configured.' })
+    }
+
+    await sendResendEmail({
+      apiKey,
+      payload: {
+        to,
+        from,
+        reply_to: safeEmail,
+        subject,
+        text: `Name: ${safeName}\nEmail: ${safeEmail}\n\n${message}`,
+      },
     })
 
     return res.json({ status: 'ok' })
