@@ -67,7 +67,7 @@ const Contact = () => {
                 href="mailto:Vitalandgreengroup@gmail.com?subject=Hello%20Vital%20and%20Green"
                 className="w-full inline-flex justify-center bg-primary text-white py-3 rounded-lg font-bold hover:bg-gold transition"
               >
-                Compose Email
+                Send Us A Message
               </a>
             </div>
           </motion.div>
