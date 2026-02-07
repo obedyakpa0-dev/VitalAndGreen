@@ -62,7 +62,7 @@ router.post('/', async (req, res) => {
       return res.status(500).json({ error: 'Email service is not configured.' })
     }
 
-    const to = process.env.CONTACT_TO || 'vitalandgrean@gamil.com'
+    const to = process.env.CONTACT_TO || 'Vitalandgreengroup@gmail.com'
     const from = process.env.SMTP_FROM || process.env.SMTP_USER
     if (!from) {
       return res.status(500).json({ error: 'Email sender is not configured.' })
