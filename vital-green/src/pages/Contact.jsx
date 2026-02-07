@@ -1,43 +1,7 @@
-import { useState } from "react"
 import Navbar from "../components/Navbar"
 import { motion } from "framer-motion" // eslint-disable-line no-unused-vars
-import { contactAPI } from "../services/api"
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: ""
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [status, setStatus] = useState({ type: null, message: "" })
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setStatus({ type: null, message: "" })
-    setIsSubmitting(true)
-    try {
-      await contactAPI.send(formData)
-      setFormData({ name: "", email: "", message: "" })
-      setStatus({
-        type: "success",
-        message: "Thank you for your message! We'll get back to you soon.",
-      })
-    } catch (error) {
-      setStatus({
-        type: "error",
-        message: error?.message || "Sorry, we couldn't send your message.",
-      })
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
   return (
     <main className="bg-light text-dark">
       <Navbar />
@@ -88,68 +52,25 @@ const Contact = () => {
             </div>
           </motion.div>
 
-          <motion.form
-            onSubmit={handleSubmit}
+          <motion.div
             className="space-y-6"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {status.type && (
-              <div
-                className={`rounded-lg px-4 py-3 text-sm ${
-                  status.type === "success"
-                    ? "bg-green-100 text-green-800 border border-green-200"
-                    : "bg-red-100 text-red-800 border border-red-200"
-                }`}
+            <div className="bg-white rounded-lg p-6 shadow">
+              <h2 className="text-2xl font-bold mb-3">Send Us an Email</h2>
+              <p className="text-gray-600 mb-6">
+                Tap the button below to open your email app and write directly to us.
+              </p>
+              <a
+                href="mailto:Vitalandgreengroup@gmail.com?subject=Hello%20Vital%20and%20Green"
+                className="w-full inline-flex justify-center bg-primary text-white py-3 rounded-lg font-bold hover:bg-gold transition"
               >
-                {status.message}
-              </div>
-            )}
-            <div>
-              <label className="block text-sm font-medium mb-2">Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-                placeholder="Your name"
-              />
+                Compose Email
+              </a>
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-2">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-                placeholder="your@email.com"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-2">Message</label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows="5"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary resize-none"
-                placeholder="Your message..."
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-gold transition disabled:opacity-70 disabled:cursor-not-allowed"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Sending..." : "Send Message"}
-            </button>
-          </motion.form>
+          </motion.div>
         </div>
       </section>
     </main>
