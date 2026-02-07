@@ -64,8 +64,7 @@ const Contact = () => {
               <div>
                 <h3 className="text-xl font-bold mb-2">Email</h3>
                 <p className="text-gray-700">
-                  <a href=
-                    "https://mail.google.com/mail/?view=cm&fs=1&to=vitalandgreengroup@gmail.com&su=Hello&body=Hi there!"
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=vitalandgreengroup@gmail.com&su=Hello&body=Hi there!"
                     className="hover: text-green-500"
                   >
                     Vitalandgreengroup@gmail.com
