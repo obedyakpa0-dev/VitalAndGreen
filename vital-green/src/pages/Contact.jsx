@@ -28,26 +28,61 @@ const Contact = () => {
               <div>
                 <h3 className="text-xl font-bold mb-2">Email</h3>
                 <p className="text-gray-700">
-                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=vitalandgreengroup@gmail.com&su=Hello&body=Hi there!"
-                    className="hover: text-green-500"
+                  <a
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=vitalandgreengroup@gmail.com&su=Hello&body=Hi there!"
+                    className="inline-flex items-center gap-2 hover:text-green-500"
                   >
-                    Vitalandgreengroup@gmail.com
+                    <i className="fa-solid fa-envelope" aria-hidden="true"></i>
+                    <span>Vitalandgreengroup@gmail.com</span>
                   </a>
-                  </p>
+                </p>
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-2">Phone</h3>
                 <p className="text-gray-700">
-                    0558191354<br/>
-                    0206091618
+                  <span className="inline-flex items-center gap-2">
+                    <i className="fa-solid fa-phone" aria-hidden="true"></i>
+                    <span>0558191354</span>
+                  </span>
+                  <br />
+                  <span className="inline-flex items-center gap-2">
+                    <i className="fa-solid fa-phone" aria-hidden="true"></i>
+                    <span>0206091618</span>
+                  </span>
                 </p>
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-2">Address</h3>
-                <p className="text-gray-700">
-                  Ablekuma,
-                  Accra<br />
+                <p className="text-gray-700 inline-flex items-center gap-2">
+                  <i className="fa-solid fa-location-dot" aria-hidden="true"></i>
+                  <span>
+                    Ablekuma,
+                    Accra
+                  </span>
                 </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold mb-2">Social</h3>
+                <div className="flex flex-col gap-2 text-gray-700">
+                  <a
+                    href="https://www.instagram.com/the_vital_and_green_juice?igsh=YmgzNHZrODU2bG0="
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 hover:text-green-500"
+                  >
+                    <i className="fa-brands fa-instagram" aria-hidden="true"></i>
+                    <span>Instagram</span>
+                  </a>
+                  <a
+                    href="https://wa.me/233206091618?text=Hi%20Vital%20Green%2C%20I%20want%20to%20order%20a%20juice"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 hover:text-green-500"
+                  >
+                    <i className="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -65,9 +100,10 @@ const Contact = () => {
               </p>
               <a
                 href="mailto:Vitalandgreengroup@gmail.com?subject=Hello%20Vital%20and%20Green"
-                className="w-full inline-flex justify-center bg-primary text-white py-3 rounded-lg font-bold hover:bg-gold transition"
+                className="w-full inline-flex items-center justify-center gap-2 bg-primary text-white py-3 rounded-lg font-bold hover:bg-gold transition"
               >
-                Send Us A Message
+                <i className="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                <span>Send Us A Message</span>
               </a>
             </div>
           </motion.div>
