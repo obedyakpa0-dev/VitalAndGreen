@@ -7,6 +7,7 @@ const OrderConfirmation = () => {
   const navigate = useNavigate()
   const order = location.state?.order
   const paymentUrl = location.state?.paymentUrl
+  const discount = Number(order?.discount || 0)
 
   if (!order) {
     return (
@@ -102,6 +103,12 @@ const OrderConfirmation = () => {
                 <span className="text-gray-700">Subtotal:</span>
                 <span className="font-semibold">GHS {order.subtotal.toFixed(2)}</span>
               </div>
+              {discount > 0 && (
+                <div className="flex justify-between">
+                  <span className="text-gray-700">Website discount (20%):</span>
+                  <span className="font-semibold text-green-700">-GHS {discount.toFixed(2)}</span>
+                </div>
+              )}
               <div className="flex justify-between">
                 <span className="text-gray-700">Tax:</span>
                 <span className="font-semibold">GHS {order.tax.toFixed(2)}</span>

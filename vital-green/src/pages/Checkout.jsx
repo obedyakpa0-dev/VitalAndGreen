@@ -22,10 +22,19 @@ const Checkout = () => {
   const [loading, setLoading] = useState(false)
   const [orderPlaced, setOrderPlaced] = useState(false)
 
-  const total = cart.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0)
-  const tax = total * 0.08
-  const shipping = total > 50 ? 0 : 10
-  const grandTotal = total + tax + shipping
+  const subtotal = cart.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0)
+  const discountRate = 0.2
+  const discount = subtotal * discountRate
+  const discountedSubtotal = subtotal - discount
+  const tax = discountedSubtotal * 0.08
+  const now = new Date()
+  const promoStart = new Date(2026, 1, 10, 0, 0, 0, 0)
+  const promoEnd = new Date(2026, 1, 20, 23, 59, 59, 999)
+  const isPromoWindow = now >= promoStart && now <= promoEnd
+  const freeDeliveryThreshold = 300
+  const qualifiesForFreeDelivery = isPromoWindow && subtotal >= freeDeliveryThreshold
+  const shipping = qualifiesForFreeDelivery ? 0 : 10
+  const grandTotal = discountedSubtotal + tax + shipping
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -57,9 +66,11 @@ const Checkout = () => {
         orderNumber,
         date: new Date().toLocaleString(),
         items: cart,
-        subtotal: total,
-        tax: tax,
-        shipping: shipping,
+        subtotal,
+        discount,
+        discountRate,
+        tax,
+        shipping,
         total: grandTotal,
         customer: {
           name: `${formData.firstName} ${formData.lastName}`,
@@ -253,7 +264,11 @@ const Checkout = () => {
               <div className="border-t pt-4 space-y-2">
                 <div className="flex justify-between">
                   <span className="text-gray-700">Subtotal:</span>
-                  <span className="font-semibold">GHS {total.toFixed(2)}</span>
+                  <span className="font-semibold">GHS {subtotal.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-700">Website discount (20%):</span>
+                  <span className="font-semibold text-green-700">-GHS {discount.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-700">Tax (8%):</span>
@@ -273,11 +288,11 @@ const Checkout = () => {
                 </div>
               </div>
 
-              {total > 50 && (
-                <div className="mt-4 p-3 bg-green-100 border border-green-300 rounded text-sm text-green-800">
-                  ✓ Free shipping on orders over GHS 50!
-                </div>
-              )}
+              <div className="mt-4 p-3 bg-green-100 border border-green-300 rounded text-sm text-green-800">
+                {qualifiesForFreeDelivery
+                  ? "Free delivery applied for orders over GHS 300 (Feb 10-20, 2026)."
+                  : "Free delivery for orders over GHS 300 from Feb 10-20, 2026."}
+              </div>
             </div>
           </motion.div>
         </div>

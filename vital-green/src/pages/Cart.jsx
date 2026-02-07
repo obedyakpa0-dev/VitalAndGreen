@@ -97,12 +97,15 @@ const Cart = () => {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-700">Shipping:</span>
-                  <span className="font-semibold">Free</span>
+                  <span className="font-semibold">Calculated at checkout</span>
                 </div>
                 <div className="border-t pt-3 flex justify-between items-center">
-                  <span className="text-lg font-semibold">Total:</span>
+                  <span className="text-lg font-semibold">Estimated Total:</span>
                   <span className="text-2xl font-bold text-primary">GHS {total.toFixed(2)}</span>
                 </div>
+              </div>
+              <div className="mt-4 p-3 bg-green-100 border border-green-300 rounded text-sm text-green-800">
+                20% website discount applied at checkout. Free delivery for orders over GHS 300 from Feb 10-20, 2026.
               </div>
 
               <button 
