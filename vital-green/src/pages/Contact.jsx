@@ -63,7 +63,11 @@ const Contact = () => {
             <div className="space-y-8">
               <div>
                 <h3 className="text-xl font-bold mb-2">Email</h3>
-                <p className="text-gray-700">Vitalandgreengroup@gmail.com</p>
+                <p className="text-gray-700">
+                  <a href="Vitalandgreengroup@gmail.com" className="hover: text-green-500">
+                    Vitalandgreengroup@gmail.com
+                  </a>
+                  </p>
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-2">Phone</h3>
