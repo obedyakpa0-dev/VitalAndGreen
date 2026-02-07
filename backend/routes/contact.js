@@ -37,12 +37,16 @@ const createTransporter = () => {
     return null
   }
 
-  return nodemailer.createTransport({
-    host,
-    port,
-    secure,
-    auth: { user: fallbackUser, pass: fallbackPass },
-  })
+ return nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user,
+    pass,
+  },
+})
+
 }
 
 router.post('/', async (req, res) => {
@@ -63,8 +67,8 @@ router.post('/', async (req, res) => {
     }
 
     const to = process.env.CONTACT_TO || 'Vitalandgreengroup@gmail.com'
-    const from = process.env.SMTP_FROM || process.env.SMTP_USER
-    if (!from) {
+    const sender = process.env.SMTP_FROM || process.env.SMTP_USER
+    if (!sender) {
       return res.status(500).json({ error: 'Email sender is not configured.' })
     }
 
@@ -74,7 +78,8 @@ router.post('/', async (req, res) => {
 
     await transporter.sendMail({
       to,
-      from,
+      from: `${safeName} <${safeEmail}>`,
+      sender,
       replyTo: safeEmail,
       subject,
       text: `Name: ${safeName}\nEmail: ${safeEmail}\n\n${message}`,
