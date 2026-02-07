@@ -91,10 +91,18 @@ router.post('/', async (req, res) => {
       return res.status(500).json({ error: 'Email service is not configured.' })
     }
 
-    const from = process.env.RESEND_FROM || "Vital Green <onboarding@resend.dev>"
-    if (!from) {
-      return res.status(500).json({ error: 'Email sender is not configured.' })
-    }
+    const from = process.env.RESEND_FROM 
+    await sendResendEmail({
+      apiKey: process.env.RESEND_API_KEY,
+      payload: {
+      to: process.env.CONTACT_TO,
+      from,                    
+      reply_to: sanitizeHeaderValue(email), 
+      subject: `New contact message from ${sanitizeHeaderValue(name)}`,
+      text: `Name: ${sanitizeHeaderValue(name)}\nEmail: ${sanitizeHeaderValue(email)}\n\n${message}`,
+  },
+})
+
 
     await sendResendEmail({
       apiKey,
