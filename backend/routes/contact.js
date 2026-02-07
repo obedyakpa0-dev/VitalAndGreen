@@ -91,7 +91,7 @@ router.post('/', async (req, res) => {
       return res.status(500).json({ error: 'Email service is not configured.' })
     }
 
-    const from = sanitizeHeaderValue(`${safeName} <${fromAddress}>`)
+    const from = process.env.RESEND_FROM || "Vital Green <onboarding@resend.dev>"
     if (!from) {
       return res.status(500).json({ error: 'Email sender is not configured.' })
     }
