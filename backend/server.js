@@ -17,6 +17,10 @@ const app = express()
 const PORT = process.env.PORT || 5000
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+const trustProxy = process.env.TRUST_PROXY
+  ? Number(process.env.TRUST_PROXY) || process.env.TRUST_PROXY === 'true'
+  : process.env.NODE_ENV === 'production'
+app.set('trust proxy', trustProxy)
 
 // Middleware
 const allowedOrigins = (process.env.CORS_ORIGIN)
