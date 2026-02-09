@@ -8,7 +8,7 @@ const router = express.Router()
 // Create order
 router.post('/', orderLimiter, async (req, res) => {
   try {
-    const { items, shippingAddress, total, subtotal, tax, shipping } = req.body
+    const { items, shippingAddress, total, subtotal, tax, shipping, discount, discountRate, paymentReference } = req.body
 
     if (!items || items.length === 0) {
       return res.status(400).json({ error: 'Cart is empty' })
@@ -34,11 +34,14 @@ router.post('/', orderLimiter, async (req, res) => {
       items,
       shippingAddress,
       subtotal,
+      discount,
+      discountRate,
       tax,
       shipping,
       total,
       status: 'pending',
-      paymentStatus: 'pending'
+      paymentStatus: 'pending',
+      paymentReference
     })
 
     await order.save()

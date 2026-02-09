@@ -22,6 +22,8 @@ const orderSchema = new mongoose.Schema({
     }
   ],
   subtotal: Number,
+  discount: Number,
+  discountRate: Number,
   tax: Number,
   shipping: Number,
   total: Number,
@@ -45,6 +47,7 @@ const orderSchema = new mongoose.Schema({
     enum: ['pending', 'completed', 'failed', 'refunded'],
     default: 'pending'
   },
+  paymentReference: String,
   paymentMethod: {
     type: String,
     enum: ['credit_card', 'debit_card', 'paypal', 'cash'],
