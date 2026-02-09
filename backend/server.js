@@ -44,13 +44,7 @@ app.use(cors({
   },
   credentials: true
 }));
-app.use(express.json({
-  verify: (req, res, buf) => {
-    if (req.originalUrl && req.originalUrl.startsWith('/api/payment/webhook')) {
-      req.rawBody = buf.toString()
-    }
-  }
-}))
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/images', express.static(path.join(__dirname, 'public/images')))
 app.use('/api', apiLimiter)

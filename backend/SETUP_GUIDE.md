@@ -49,12 +49,6 @@ CONTACT_TO=vitalandgreengroup@gmail.com
 
 # Comma-separated list of allowed origins
 CORS_ORIGIN=http://localhost:5173,https://your-frontend-domain.com
-
-# Korapay
-KORAPAY_SECRET_KEY=your_korapay_secret_key
-KORAPAY_BASE_URL=https://api.korapay.com
-KORAPAY_REDIRECT_URL=http://localhost:5173/order-confirmation
-KORAPAY_NOTIFICATION_URL=http://localhost:5000/api/payment/webhook
 ```
 
 #### 5. Start MongoDB (if using local)

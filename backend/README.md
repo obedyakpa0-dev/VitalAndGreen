@@ -31,9 +31,7 @@ Node.js + Express + MongoDB backend for the Vital Green juice e-commerce platfor
 - `POST /api/orders/:id/cancel` - Cancel order
 
 ### Payment
-- `POST /api/payment/initialize` - Initialize payment
-- `GET /api/payment/verify?reference=...` - Verify payment by reference
-- `POST /api/payment/webhook` - Korapay webhook endpoint
+- `POST /api/payment/initialize` - Initialize mock payment
 
 ### Contact
 - `POST /api/contact` - Send contact form email
@@ -55,10 +53,6 @@ All limits are per IP over a 15-minute window:
 - `RESEND_API_KEY` - Resend API key
 - `RESEND_FROM` - From address used for outgoing email (must be verified in Resend)
 - `CONTACT_TO` - Recipient for contact form messages
-- `KORAPAY_SECRET_KEY` - Korapay secret key (server-side)
-- `KORAPAY_BASE_URL` - Korapay API base URL (default: https://api.korapay.com)
-- `KORAPAY_REDIRECT_URL` - Frontend URL for payment redirect
-- `KORAPAY_NOTIFICATION_URL` - Backend webhook URL for payment notifications
 
 ## Project Structure
 
@@ -103,6 +97,6 @@ curl -X POST http://localhost:5000/api/orders \
 
 ## Notes
 
-- Payment confirmation happens before orders are created
+- Payment endpoint is mock-only (no external payment provider)
 - Stock validation happens before order creation
 - All timestamps use ISO 8601 format

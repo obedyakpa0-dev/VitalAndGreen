@@ -70,11 +70,8 @@ await ordersAPI.cancel(id)
 ```javascript
 import { paymentAPI } from '../services/api'
 
-// Initialize payment
-await paymentAPI.initialize(payload)
-
-// Verify payment by reference
-await paymentAPI.verify(reference)
+// Initialize mock payment
+await paymentAPI.initialize({ email, amount })
 ```
 
 ## Pages Using Backend Integration
@@ -96,9 +93,9 @@ await paymentAPI.verify(reference)
 - Can be updated to fetch featured products from `/api/products`
 
 ### 4. **Checkout** (`src/pages/Checkout.jsx`)
-- Initializes payment with the backend
-- Redirects to the Korapay checkout URL
-- Returns to the order confirmation page after payment
+- Stores orders locally in `localStorage`
+- Opens an external payment link in a new tab
+- Not yet connected to backend orders or payment endpoints
 
 ## Running the Full Stack
 

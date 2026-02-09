@@ -165,10 +165,6 @@ export const paymentAPI = {
       body: JSON.stringify(payload),
     })
   },
-  // Verify payment by reference
-  verify: async (reference) => {
-    return apiCall(`/payment/verify?reference=${encodeURIComponent(reference)}`)
-  },
 }
 
 // ========== CONTACT API ==========

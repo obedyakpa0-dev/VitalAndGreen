@@ -59,9 +59,8 @@ Backend runs on: `http://localhost:5000`
 - Order management with stock control
 - Product reviews and ratings
 - Contact form email delivery via Resend
-- Payment initialization
+- Mock payment initialization
 - Rate limiting (global + route-specific)
- - Payment verification before order creation
 
 ## API Documentation
 
@@ -87,9 +86,7 @@ http://localhost:5000/api
 - `POST /orders/:id/cancel` - Cancel order
 
 ### Payment
-- `POST /payment/initialize` - Initialize payment
-- `GET /payment/verify?reference=...` - Verify payment by reference
-- `POST /payment/webhook` - Korapay webhook endpoint
+- `POST /payment/initialize` - Initialize mock payment
 
 ### Contact
 - `POST /contact` - Send contact form email

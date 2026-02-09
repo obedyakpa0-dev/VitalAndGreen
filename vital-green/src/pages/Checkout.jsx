@@ -2,7 +2,6 @@ import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import { CartContext } from "../context/CartContextValue"
-import { paymentAPI } from "../services/api"
 import { motion } from "framer-motion" // eslint-disable-line no-unused-vars
 
 const Checkout = () => {
@@ -21,6 +20,7 @@ const Checkout = () => {
   })
 
   const [loading, setLoading] = useState(false)
+  const [orderPlaced, setOrderPlaced] = useState(false)
 
   const subtotal = cart.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0)
   const discountRate = 0.2
@@ -61,14 +61,11 @@ const Checkout = () => {
     setLoading(true)
 
     try {
-      const payload = {
-        items: cart.map((item) => ({
-          productId: item._id || item.id,
-          name: item.name,
-          price: item.price,
-          quantity: item.quantity || 1,
-          sizeLabel: item.sizeLabel
-        })),
+      const orderNumber = Math.floor(Math.random() * 1000000)
+      const order = {
+        orderNumber,
+        date: new Date().toLocaleString(),
+        items: cart,
         subtotal,
         discount,
         discountRate,
@@ -78,32 +75,18 @@ const Checkout = () => {
         customer: {
           name: `${formData.firstName} ${formData.lastName}`,
           email: formData.email,
-          phone: formData.phone
-        },
-        shippingAddress: {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
           phone: formData.phone,
-          street: formData.address,
-          city: formData.city,
-          state: formData.state,
-          zipCode: formData.zipCode
+          address: `${formData.address}, ${formData.city}, ${formData.state} ${formData.zipCode}`
         }
       }
 
-      const response = await paymentAPI.initialize(payload)
-      if (response?.checkoutUrl) {
-        window.location.href = response.checkoutUrl
-        return
-      }
+      const orders = JSON.parse(localStorage.getItem("orders")) || []
+      orders.push(order)
+      localStorage.setItem("orders", JSON.stringify(orders))
 
-      if (response?.reference) {
-        navigate(`/order-confirmation?reference=${encodeURIComponent(response.reference)}`)
-        return
-      }
-
-      throw new Error("Payment initialization failed. No checkout URL returned.")
+      setOrderPlaced(true)
+      navigate("/order-confirmation", { state: { order, paymentUrl: "https://korbapay.korba365.com/payments/institution/5" } })
+      window.open("https://korbapay.korba365.com/payments/institution/5", "_blank", "noopener,noreferrer")
     } catch (error) {
       console.error("Payment initialization failed:", error)
       alert(error.message || "Payment initialization failed. Please try again.")
@@ -111,7 +94,7 @@ const Checkout = () => {
     }
   }
 
-  if (cart.length === 0) {
+  if (cart.length === 0 && !orderPlaced) {
     return (
       <main className="bg-light text-dark min-h-screen">
         <Navbar />
