@@ -10,7 +10,7 @@
    - Or use MongoDB Atlas (cloud): https://www.mongodb.com/cloud/atlas
 
 3. **Resend Account** (for contact form emails)
-   
+
 ### Installation Steps
 
 #### 1. Clone/Navigate to backend directory
@@ -47,7 +47,8 @@ RESEND_API_KEY=your_resend_api_key
 RESEND_FROM="Vital Green <no-reply@yourdomain.com>"
 CONTACT_TO=vitalandgreengroup@gmail.com
 
-CORS_ORIGIN=http://localhost:5173
+# Comma-separated list of allowed origins
+CORS_ORIGIN=http://localhost:5173,https://your-frontend-domain.com
 ```
 
 #### 5. Start MongoDB (if using local)
@@ -69,9 +70,9 @@ npm run dev
 
 You should see:
 ```
-✓ Connected to MongoDB
-✓ Sample products initialized
-✓ Server running on http://localhost:5000
+Connected to MongoDB
+Sample products initialized
+Server running on http://localhost:5000
 ```
 
 ### Verify Installation
@@ -107,7 +108,7 @@ curl http://localhost:5000/api/products
   # Windows
   netstat -ano | findstr :5000
   taskkill /PID <PID> /F
-  
+
   # Mac/Linux
   lsof -ti:5000 | xargs kill -9
   ```
@@ -158,6 +159,14 @@ curl -X POST http://localhost:5000/api/orders \
   }'
 ```
 
+### Rate Limits
+
+All limits are per IP over a 15-minute window:
+- Global API: 300 requests
+- Orders (`POST /api/orders`): 20 requests
+- Payment (`POST /api/payment/initialize`): 30 requests
+- Contact (`POST /api/contact`): 10 requests
+
 ### Database Management
 
 #### View Data in MongoDB
@@ -205,16 +214,15 @@ db.orders.countDocuments()
    heroku login
    heroku create your-app-name
    git push heroku main
-    
    ```
 
 ### Next Steps
 
-1. ✅ Backend running
-2. ⬜ Connect frontend to backend
-3. ⬜ Configure email delivery
-4. ⬜ Set up email notifications
-5. ⬜ Deploy to production
+1. [x] Backend running
+2. [ ] Connect frontend to backend
+3. [ ] Configure email delivery
+4. [ ] Set up email notifications
+5. [ ] Deploy to production
 
 ---
 

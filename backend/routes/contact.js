@@ -1,5 +1,6 @@
 import express from 'express'
 import https from 'https'
+import { contactLimiter } from '../middleware/rateLimiters.js'
 
 const router = express.Router()
 
@@ -64,7 +65,7 @@ const sendResendEmail = ({ apiKey, payload }) => {
   })
 }
 
-router.post('/', async (req, res) => {
+router.post('/', contactLimiter, async (req, res) => {
   try {
     const { name, email, message } = req.body || {}
 

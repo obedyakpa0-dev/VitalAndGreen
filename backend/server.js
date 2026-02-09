@@ -9,6 +9,7 @@ import orderRoutes from './routes/orders.js'
 import paymentRoutes from './routes/payment.js'
 import contactRoutes from './routes/contact.js'
 import { initializeProducts } from './utils/seedDatabase.js'
+import { apiLimiter } from './middleware/rateLimiters.js'
 
 dotenv.config()
 
@@ -42,6 +43,7 @@ app.use(cors({
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/images', express.static(path.join(__dirname, 'public/images')))
+app.use('/api', apiLimiter)
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/vital-green')

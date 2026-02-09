@@ -4,22 +4,22 @@
 
 ```
 vital/
-├── vital-green/              # React Frontend
-│   ├── src/
-│   │   ├── pages/           # Page components
-│   │   ├── components/      # Reusable components
-│   │   ├── context/         # React context
-│   │   └── App.jsx
-│   ├── package.json
-│   └── vite.config.js
-│
-└── backend/                 # Node.js Backend
-    ├── models/             # Database schemas
-    ├── routes/             # API endpoints
-    ├── middleware/         # Custom middleware
-    ├── utils/              # Utility functions
-    ├── server.js
-    └── package.json
+|-- vital-green/              # React Frontend
+|   |-- src/
+|   |   |-- pages/            # Page components
+|   |   |-- components/       # Reusable components
+|   |   |-- context/          # React context
+|   |   `-- App.jsx
+|   |-- package.json
+|   `-- vite.config.js
+|
+`-- backend/                  # Node.js Backend
+    |-- models/               # Database schemas
+    |-- routes/               # API endpoints
+    |-- middleware/           # Custom middleware
+    |-- utils/                # Utility functions
+    |-- server.js
+    `-- package.json
 ```
 
 ## Quick Start
@@ -52,13 +52,15 @@ Backend runs on: `http://localhost:5000`
 - Smooth animations with Framer Motion
 - Client-side routing with React Router
 - Contact form (email via backend)
+
 ### Backend (Express + MongoDB)
 - RESTful API
 - Product CRUD operations
 - Order management with stock control
 - Product reviews and ratings
-- Contact form email delivery
+- Contact form email delivery via Resend
 - Mock payment initialization
+- Rate limiting (global + route-specific)
 
 ## API Documentation
 
@@ -92,6 +94,14 @@ http://localhost:5000/api
 ### Health
 - `GET /health` - Server health check
 
+## Rate Limits
+
+All limits are per IP over a 15-minute window:
+- Global API: 300 requests
+- Orders (`POST /orders`): 20 requests
+- Payment (`POST /payment/initialize`): 30 requests
+- Contact (`POST /contact`): 10 requests
+
 ## Technologies Used
 
 ### Frontend
@@ -107,8 +117,9 @@ http://localhost:5000/api
 - Express.js
 - MongoDB
 - Mongoose
-- Nodemailer
 - Multer
+- Resend API (email)
+- express-rate-limit
 
 ## Development Workflow
 

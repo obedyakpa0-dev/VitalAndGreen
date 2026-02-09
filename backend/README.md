@@ -10,6 +10,7 @@ Node.js + Express + MongoDB backend for the Vital Green juice e-commerce platfor
 - **Payment Initialization**: Mock payment endpoint (no external provider)
 - **Contact Form**: Email delivery via Resend
 - **Pagination**: Server-side pagination for product listings
+- **Rate Limiting**: Global and route-specific request limits
 
 ## API Endpoints
 
@@ -35,12 +36,20 @@ Node.js + Express + MongoDB backend for the Vital Green juice e-commerce platfor
 ### Contact
 - `POST /api/contact` - Send contact form email
 
+## Rate Limits
+
+All limits are per IP over a 15-minute window:
+- Global API: 300 requests
+- Orders (`POST /api/orders`): 20 requests
+- Payment (`POST /api/payment/initialize`): 30 requests
+- Contact (`POST /api/contact`): 10 requests
+
 ## Environment Variables
 
 - `PORT` - Server port (default: 5000)
 - `NODE_ENV` - Environment (development/production)
 - `MONGODB_URI` - MongoDB connection string
-- `CORS_ORIGIN` - Frontend URL for CORS
+- `CORS_ORIGIN` - Comma-separated list of allowed origins
 - `RESEND_API_KEY` - Resend API key
 - `RESEND_FROM` - From address used for outgoing email (must be verified in Resend)
 - `CONTACT_TO` - Recipient for contact form messages
@@ -49,17 +58,19 @@ Node.js + Express + MongoDB backend for the Vital Green juice e-commerce platfor
 
 ```
 backend/
-├── models/           # Database schemas
-│   ├── Product.js
-│   └── Order.js
-├── routes/           # API routes
-│   ├── products.js
-│   ├── orders.js
-│   └── payment.js
-│   └── contact.js
-├── server.js         # Main server file
-├── package.json
-└── .env.example
+|-- models/           # Database schemas
+|   |-- Product.js
+|   `-- Order.js
+|-- routes/           # API routes
+|   |-- products.js
+|   |-- orders.js
+|   |-- payment.js
+|   `-- contact.js
+|-- middleware/       # Custom middleware
+|   `-- rateLimiters.js
+|-- server.js         # Main server file
+|-- package.json
+`-- .env.example
 ```
 
 ## Database Setup

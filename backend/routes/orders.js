@@ -1,11 +1,12 @@
 import express from 'express'
 import Order from '../models/Order.js'
 import Product from '../models/Product.js'
+import { orderLimiter } from '../middleware/rateLimiters.js'
 
 const router = express.Router()
 
 // Create order
-router.post('/', async (req, res) => {
+router.post('/', orderLimiter, async (req, res) => {
   try {
     const { items, shippingAddress, total, subtotal, tax, shipping } = req.body
 

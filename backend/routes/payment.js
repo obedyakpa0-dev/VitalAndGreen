@@ -1,9 +1,10 @@
 import express from 'express'
+import { paymentLimiter } from '../middleware/rateLimiters.js'
 
 const router = express.Router()
 
 // Mock payment initialization (no external provider)
-router.post('/initialize', async (req, res) => {
+router.post('/initialize', paymentLimiter, async (req, res) => {
   try {
     const { email, amount } = req.body
 

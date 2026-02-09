@@ -15,6 +15,7 @@ The API service is located at: `src/services/api.js`
 ### Example `.env` file:
 ```
 VITE_API_URL=http://localhost:5000/api
+VITE_MAIN_SITE_URL=http://localhost:5173
 ```
 
 ## Available API Endpoints
@@ -28,7 +29,6 @@ await productsAPI.getAll(page, limit)
 
 // Get product by ID
 await productsAPI.getById(id)
-
 
 // Create product
 await productsAPI.create(productData)
@@ -103,7 +103,7 @@ await paymentAPI.initialize({ email, amount })
 ```bash
 cd backend
 npm install
-npm start
+npm run dev
 ```
 Backend runs on `http://localhost:5000`
 
@@ -111,7 +111,7 @@ Backend runs on `http://localhost:5000`
 ```bash
 cd vital-green
 npm install
-npm start
+npm run dev
 ```
 Frontend runs on `http://localhost:5173`
 
@@ -122,6 +122,13 @@ The API service automatically:
 - Throws errors for frontend to handle
 - Falls back to mock data in most pages when backend is unavailable
 - Displays loading states while fetching data
+- Receives `429` errors if rate limits are exceeded
+
+Rate limits are per IP over a 15-minute window:
+- Global API: 300 requests
+- Orders (`POST /api/orders`): 20 requests
+- Payment (`POST /api/payment/initialize`): 30 requests
+- Contact (`POST /api/contact`): 10 requests
 
 ## Fallback Behavior
 
