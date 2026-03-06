@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import { motion } from "framer-motion" // eslint-disable-line no-unused-vars
 import { productsAPI, ordersAPI } from "../services/api"
 
 const Admin = () => {
-  const navigate = useNavigate()
-  const mainSiteUrl = import.meta.env.VITE_MAIN_SITE_URL
+  const mainSiteUrl = import.meta.env.VITE_MAIN_SITE_URL || "https://vital-green-frontend.vercel.app"
   const [activeTab, setActiveTab] = useState("dashboard")
   const [products, setProducts] = useState([])
   const [orders, setOrders] = useState([])
@@ -141,11 +139,7 @@ const Admin = () => {
             </h1>
             <button
               onClick={() => {
-                if (mainSiteUrl) {
-                  window.location.href = mainSiteUrl
-                  return
-                }
-                navigate("/")
+                window.location.href = mainSiteUrl
               }}
               className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition"
             >
