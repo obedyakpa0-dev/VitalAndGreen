@@ -105,7 +105,7 @@ const Cart = () => {
                 </div>
               </div>
               <div className="mt-4 p-3 bg-green-100 border border-green-300 rounded text-sm text-green-800">
-                20% website discount applied at checkout. Free delivery for orders over GHS 300 from Feb 10-20, 2026.
+                20% website discount applied at checkout. Free delivery for orders over GHS 300.
               </div>
 
               <button 

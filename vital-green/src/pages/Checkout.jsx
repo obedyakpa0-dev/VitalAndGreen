@@ -27,12 +27,8 @@ const Checkout = () => {
   const discount = subtotal * discountRate
   const discountedSubtotal = subtotal - discount
   const tax = discountedSubtotal * 0.08
-  const now = new Date()
-  const promoStart = new Date(2026, 1, 10, 0, 0, 0, 0)
-  const promoEnd = new Date(2026, 1, 20, 23, 59, 59, 999)
-  const isPromoWindow = now >= promoStart && now <= promoEnd
   const freeDeliveryThreshold = 300
-  const qualifiesForFreeDelivery = isPromoWindow && subtotal >= freeDeliveryThreshold
+  const qualifiesForFreeDelivery = subtotal >= freeDeliveryThreshold
   const shipping = qualifiesForFreeDelivery ? 0 : 10
   const grandTotal = discountedSubtotal + tax + shipping
 
@@ -290,8 +286,8 @@ const Checkout = () => {
 
               <div className="mt-4 p-3 bg-green-100 border border-green-300 rounded text-sm text-green-800">
                 {qualifiesForFreeDelivery
-                  ? "Free delivery applied for orders over GHS 300 (Feb 10-20, 2026)."
-                  : "Free delivery for orders over GHS 300 from Feb 10-20, 2026."}
+                  ? "Free delivery applied for orders over GHS 300."
+                  : "Free delivery for orders over GHS 300."}
               </div>
             </div>
           </motion.div>
